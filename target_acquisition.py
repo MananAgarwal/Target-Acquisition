@@ -7,7 +7,8 @@ import plotly.graph_objs as go
 from plotly import tools
 from astropy.io import fits
 
-plotly.offline.init_notebook_mode(connected=True)
+#Uncomment when using a  Jupyter Notebook
+#plotly.offline.init_notebook_mode(connected=True)
 
 
 if (sys.argv[1].split('.')[1] != "fits"):
