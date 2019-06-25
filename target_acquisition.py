@@ -1,5 +1,6 @@
 import math
 import sys
+
 import plotly
 import plotly.plotly as py
 import plotly.graph_objs as go
@@ -8,8 +9,13 @@ from astropy.io import fits
 
 plotly.offline.init_notebook_mode(connected=True)
 
+
+if (sys.argv[1].split('.')[1] != "fits"):
+    sys.exit()
+
 fits_file = fits.open(sys.argv[1])
 file_name = sys.argv[1].split('.')[0]
+
 
 def roundup_to_hundred(a,b):
     """rounds up the max of a and b to the nearest hundred"""
@@ -41,6 +47,7 @@ data_acqpref = fits_file[4].data
 trace_acqcent = go.Heatmap(
         z = data_acqcent,
         colorscale = 'Viridis',
+        showscale = False,
     )
 
 trace_acqpref = go.Heatmap(
@@ -48,7 +55,7 @@ trace_acqpref = go.Heatmap(
         colorscale = 'Viridis',
     )
 
-fig = tools.make_subplots(rows=1, cols=2, subplot_titles=('ACQCENT', 'ACQPREF'))
+fig = tools.make_subplots(rows=1, cols=2, subplot_titles=('ACQCENT', 'ACQPREF'), shared_yaxes=False)
 
 fig.append_trace(trace_acqcent, 1, 1)
 fig.append_trace(trace_acqpref, 1, 2)
